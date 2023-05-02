@@ -1,0 +1,35 @@
+name: AZ CLI pipeline
+
+on: [workflow_dispatch]
+
+jobs:
+  azclidtest:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      # - name: Azure Login
+      #   uses: azure/login@v1
+      #   with:
+      #     client-id: ${{ secrets.AZURE_CLIENT_ID }}
+      #     tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+      #     subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+      - name: AZ CLI Test
+        id: AZ CLI Test 
+        shell: bash
+        run: |
+          echo "About to print version version of cli"
+          az --version
+          echo "About to xyz."
+          az login --service-principal -u  ${{ secrets.AZURE_CLIENT_ID }} -p ${{ secrets.AZURE_SECRET }} --tenant fc8077b9-4e4f-4d95-abdc-72e2a78dda0e
+          echo "About to list subscriptions"
+          az account list --all
+          echo "About to set subscription"
+          az account set --subscription ${{ secrets.AZURE_SUBSCRIPTION_ID }}
