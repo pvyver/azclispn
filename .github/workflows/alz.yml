@@ -22,7 +22,7 @@ jobs:
       #     subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
       - name: AZ CLI Test
-        id: AZ CLI Test 
+        id: AZ_CLI_Test 
         shell: bash
         run: |
           echo "About to print version version of cli"
